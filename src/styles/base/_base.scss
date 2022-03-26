@@ -1,0 +1,61 @@
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: $fuentePrincipal;
+    font-size: 1.6rem;
+    line-height: 1.8;
+}
+
+h1, h2, h3 {
+    font-weight: 900;
+    margin: 2rem 0;
+}
+
+h1 {
+    font-size: 5rem;
+}
+
+h2 {
+    font-size: 4.6rem;
+}
+
+h3 {
+    font-size: 3rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+.mt-1{
+    margin-top: 5px;
+}
+
+.mt-5{
+    margin-top: 20px;
+}
+
+.mb-1{
+    margin-bottom:5px;
+}
+
+.mb-5{
+    margin-bottom:20px;
+}
+
+.pointer{
+    cursor: pointer;
+}
