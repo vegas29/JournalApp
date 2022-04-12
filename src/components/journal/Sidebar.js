@@ -12,6 +12,7 @@ export const Sidebar = () => {
                     <img
                         className="journal__img"
                         src={Logo}
+                        alt="logo"
                     />
                 </div>
 
@@ -27,6 +28,7 @@ export const Sidebar = () => {
                     <img
                         className="journal__logout-img"
                         src={Profile}
+                        alt="profile"
                     />
                     
                     <p>Alejandro</p>

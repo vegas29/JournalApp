@@ -13,6 +13,7 @@ export const NothingSelected = () => {
                 <img
                     src={AddImage}
                     className="nothing__img"
+                    alt="nada"
                 />
             </div>
         </div>
