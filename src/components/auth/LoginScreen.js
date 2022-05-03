@@ -1,16 +1,24 @@
-import { useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+import validator from 'validator';
+
 import { startGoogleLogin, startLoginEmailPassword } from "../../actions/auth";
 import { useForm } from "../../hooks/useForm";
+import { removeError, setError } from "../../actions/ui";
+import { Modal, ModalHeader, ModalBody, Spinner } from "reactstrap";
 
 export const LoginScreen = () => {
 
     const dispatch = useDispatch();
 
+    const { msgError, loading } = useSelector( state => state.ui);
+
+    console.log(msgError, loading)
+
     const [formValues, handleInputChange] = useForm({
-        email: 'diegoleandro-29@hotmail.com',
-        password: '123456'
+        email: '',
+        password: ''
     })
 
     const {email, password} = formValues;
@@ -18,7 +26,36 @@ export const LoginScreen = () => {
     const handleLogin = (e) =>{
         e.preventDefault()
         console.log(email, password)
-        dispatch( startLoginEmailPassword(email, password))
+
+        if(isFormIsValid()){
+            dispatch( startLoginEmailPassword(email, password))
+        }
+    }
+
+    const isFormIsValid = () =>{
+        if(!validator.isEmail(email)){
+            dispatch( setError('Email is not valid'));
+            setTimeout(()=>{
+                dispatch(removeError());
+            }, 2000);
+            return false;
+        }else if (validator.isEmpty(email)){
+            dispatch( setError('Email is empty'));
+            setTimeout(()=>{
+                dispatch(removeError());
+            }, 2000);
+            return false;
+        }else if (validator.isEmpty(password)){
+            dispatch( setError('Password is empty'));
+            setTimeout(()=>{
+                dispatch(removeError());
+            }, 2000);
+            return false;
+        }
+
+        dispatch(removeError());
+
+        return true;
     }
     
     const handleGoogleLogin = () => {
@@ -31,6 +68,15 @@ export const LoginScreen = () => {
             <form
                 onSubmit={handleLogin}
             >
+
+                {
+                    msgError && 
+                    (
+                        <div className="auth__alert-error">
+                            {msgError}
+                        </div>
+                    )
+                }
                 <input
                     type="text"
                     placeholder="Email"
@@ -53,8 +99,9 @@ export const LoginScreen = () => {
                 <button
                     type="submit"
                     className="btn btn-primary"
+                    disabled={loading}
                 >
-                    Iniciar sesion
+                    {loading ? 'Cargando': 'Iniciar sesion'}
                 </button>
 
                 <hr
@@ -82,6 +129,18 @@ export const LoginScreen = () => {
                     Create new account
                 </Link>
             </form>
+
+            {/* Modal */}
+
+            <Modal
+                isOpen={loading}
+                className='modal-dialog-centered modal-lg'
+            >
+                <ModalBody className='pb-5 px-sm-4 mx-50 d-flex justify-content-center p-5'>
+                    <Spinner size='md'></Spinner>
+                    <p className="fs-1 d-block">Cargando...</p>
+                </ModalBody>
+            </Modal>
         </>
     )
 }

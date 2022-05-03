@@ -1,9 +1,17 @@
 
+import { useDispatch } from 'react-redux';
+import { startLogout } from '../../actions/auth';
 import Logo from '../../assets/images/logo.png';
 import Profile from '../../assets/images/profile.jpg';
 import { JournalEntries } from './JournalEntries';
 
 export const Sidebar = () => {
+
+    const dispatch = useDispatch();
+    
+    const handleLogout = () =>{
+        dispatch( startLogout() )
+    }
     return (
         <aside className="journal__sidebar">
             <div className="journal__sidebar-navbar">
@@ -18,7 +26,7 @@ export const Sidebar = () => {
 
                 <div className="journal__new-entry">
                     <i className="fa-solid fa-calendar"></i>
-                    <p>New Entry</p>
+                    <p style={{margin: 0, padding: 10}}>New Entry</p>
                 </div>
 
                 <JournalEntries/>
@@ -34,7 +42,8 @@ export const Sidebar = () => {
                     <p>Alejandro</p>
 
                     <button
-                        className="btn btn-logout">
+                        className="btn btn-logout"
+                        onClick={handleLogout}>
                         <i className="fa-solid fa-arrow-right-from-bracket"></i>
                     </button>
                 </div>

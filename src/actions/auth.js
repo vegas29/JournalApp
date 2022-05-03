@@ -1,12 +1,47 @@
-import { getAuth, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { googleAuthProvider } from '../firebase/firebaseConfig';
-import { types } from "../types/types"
+import { types } from "../types/types";
+import { finishLoading, startLoading } from './ui';
+import Swal from 'sweetalert2';
 
 export const startLoginEmailPassword = (email, password) =>{
     return (dispatch) => {
+
+        dispatch(startLoading());
+
         setTimeout(()=>{
-            dispatch( login(123, 'Pedro'));
-        }, 3500)
+            
+            const auth = getAuth();
+            signInWithEmailAndPassword(auth, email, password)
+                .then(({user})=>{
+                    dispatch(
+                        login(user.uid, user.displayName)
+                    );
+                }).catch( error =>{
+                    Swal.fire('Error', error.message, 'error')
+                    console.log(error);
+                }).finally(()=>{
+                    dispatch(finishLoading());
+                })
+        }, 2000)
+        
+    }
+}
+
+export const startRegisterWithEmailPasswordName = (email, password, name) => {
+    return (dispatch) => {
+        const auth = getAuth();
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(async({user})=>{
+                await updateProfile(user, {displayName: name});
+
+                dispatch(
+                    login(user.uid, user.displayName)
+                );
+            }).catch( error =>{
+                console.log(error)
+                Swal.fire('Error', error.message, 'error')
+            })
     }
 }
 
@@ -26,4 +61,16 @@ export const login = (uid, displayName) => ({
         uid,
         displayName
     }
+});
+
+export const startLogout = () =>{
+    return async ( dispatch ) => {
+        const auth = getAuth();
+        await signOut(auth);
+        dispatch(logout());
+    }
+}
+
+export const logout = () => ({
+    type: types.logout
 })
