@@ -1,5 +1,5 @@
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { startLogout } from '../../actions/auth';
 import Logo from '../../assets/images/logo.png';
 import Profile from '../../assets/images/profile.jpg';
@@ -8,6 +8,8 @@ import { JournalEntries } from './JournalEntries';
 export const Sidebar = () => {
 
     const dispatch = useDispatch();
+
+    const { name } = useSelector( state => state.auth);
     
     const handleLogout = () =>{
         dispatch( startLogout() )
@@ -39,7 +41,7 @@ export const Sidebar = () => {
                         alt="profile"
                     />
                     
-                    <p>Alejandro</p>
+                    <p>{name}</p>
 
                     <button
                         className="btn btn-logout"

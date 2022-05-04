@@ -19,7 +19,6 @@ export const startLoginEmailPassword = (email, password) =>{
                     );
                 }).catch( error =>{
                     Swal.fire('Error', error.message, 'error')
-                    console.log(error);
                 }).finally(()=>{
                     dispatch(finishLoading());
                 })
@@ -39,7 +38,6 @@ export const startRegisterWithEmailPasswordName = (email, password, name) => {
                     login(user.uid, user.displayName)
                 );
             }).catch( error =>{
-                console.log(error)
                 Swal.fire('Error', error.message, 'error')
             })
     }
