@@ -33,7 +33,11 @@ export const AppRouter = () => {
 
     if (checking) {
         return (
-            <h1>Wait...</h1>
+            <div className="d-flex justify-content-center align-items-center vh-100">
+                <div className="spinner-border text-primary d-block mx-auto my-5" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </div>
         )
     }
     return (
