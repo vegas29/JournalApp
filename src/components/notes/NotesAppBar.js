@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { startSaveNote, startUploadingImage } from "../../actions/notes";
+import { startDeleting, startSaveNote, startUploadingImage } from "../../actions/notes";
 
 
 export const NotesAppBar = () => {
@@ -7,6 +7,8 @@ export const NotesAppBar = () => {
     const dispatch = useDispatch();
 
     const {active} = useSelector( state => state.notes );
+
+    console.log('active 11', active)
 
     const handleSave = () =>{
         console.log(active);
@@ -23,6 +25,11 @@ export const NotesAppBar = () => {
         if (file) {
             dispatch( startUploadingImage(file) );
         }
+    }
+    
+    const handleDelete = () =>{
+
+        dispatch( startDeleting(active.id))
     }
 
     return (
@@ -49,6 +56,13 @@ export const NotesAppBar = () => {
                     onClick={ handleSave }
                 >
                     Save
+                </button>
+
+                <button 
+                    className="btn  btn__navbar btn__navbar-save btn-danger"
+                    onClick={ handleDelete }
+                >
+                    Delete
                 </button>
             </div>
         </div>

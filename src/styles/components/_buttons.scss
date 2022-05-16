@@ -61,6 +61,7 @@
     }
 }
 
+
 .btn-logout{
     font-size: 2.5rem;
 }
@@ -70,8 +71,17 @@
     font-size: 1.4rem;
     border-radius: 1rem;
     background-color: darken($primary, $amount: 1);
-
+    
     &:hover{
         background-color: darken($primary, $amount: 2) ;
+    }
+}
+
+.btn-danger{
+    background-color: rgb(178, 39, 39);
+    transition: all .3s ease-in;
+
+    &:hover{
+        background-color: darken($color: red, $amount: 10);
     }
 }
