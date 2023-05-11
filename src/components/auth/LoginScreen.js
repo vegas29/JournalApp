@@ -118,7 +118,11 @@ export const LoginScreen = () => {
                         className="auth__btns"
                     >
                         <div className="auth__btn" onClick={handleGoogleLogin}>
-                            <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="google button" />
+                            <img 
+                                className="google-icon" 
+                                src="https://play-lh.googleusercontent.com/6UgEjh8Xuts4nwdWzTnWH8QtLuHqRMUB7dp24JYVE2xcYzq4HA8hFfcAbU-R-PC_9uA1" 
+                                alt="google button" 
+                            />
                         </div>
                     </div>
                 </div>
